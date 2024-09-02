@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: survey_api_development
+
+test:
+  <<: *default
+  database: survey_api_test
+
+production:
+  <<: *default
+  database: survey_api_production
+  username: survey_api
+  password: <%= ENV["SURVEY_API_DATABASE_PASSWORD"] %>
