@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :surveys, dependent: :destroy
+
+  enum role: { respondent: 0, coordinator: 1 }
 end
