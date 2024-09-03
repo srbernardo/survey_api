@@ -25,3 +25,5 @@ end
 group :development do
   gem "graphiql-rails"
 end
+
+gem "sprockets-rails", "~> 3.5"
