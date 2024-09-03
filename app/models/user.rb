@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
 
   enum role: { respondent: 0, coordinator: 1 }
+
+  def coordinator?
+    role == "coordinator"
+  end
 end

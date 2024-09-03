@@ -12,9 +12,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 gem "bootsnap", require: false
 
+gem "bcrypt", "~> 3.1"
 gem "devise"
 gem 'dotenv-rails'
 gem 'graphql'
+gem "jwt", "~> 2.8"
+gem "sprockets-rails", "~> 3.5"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
@@ -25,5 +28,3 @@ end
 group :development do
   gem "graphiql-rails"
 end
-
-gem "sprockets-rails", "~> 3.5"
