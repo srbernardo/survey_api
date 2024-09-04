@@ -13,7 +13,7 @@ module Mutations
     def resolve(title:)
       authorize_coordinator!
 
-      survey = Survey.new(title:, user_id: 1)
+      survey = Survey.new(title:, user_id: context[:current_user].id)
       raise GraphQL::ExecutionError.new "Error creating survey", extensions: survey.errors.to_hash unless survey.save
 
       { survey: survey }
