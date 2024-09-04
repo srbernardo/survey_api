@@ -2,6 +2,7 @@ class Choice < ApplicationRecord
   belongs_to :question
 
   validate :limit_choices_for_radio_button_questions, on: :create
+  validates :value, presence: true
 
   private
 
