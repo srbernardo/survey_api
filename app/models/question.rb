@@ -9,6 +9,17 @@ class Question < ApplicationRecord
 
   validate :limit_radio_button_questions, on: :create
 
+  def completed?
+    case option
+    when "checkboxe", "radio_button"
+      choices.any?(&:marked)
+    when "single_line_answer"
+      single_line_answer&.value.present?
+    else
+      multi_line_answer&.value.present?
+    end
+  end
+
   private
 
   def limit_radio_button_questions
