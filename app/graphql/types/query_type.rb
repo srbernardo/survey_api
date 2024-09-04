@@ -2,6 +2,8 @@
 
 module Types
   class QueryType < Types::BaseObject
+    include Types::SurveyQueries
+
     field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
       argument :id, ID, required: true, description: "ID of the object."
     end
@@ -18,14 +20,16 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    # field :survey, Types::SurveyType, null: false do
+    #   argument :id, ID, required: true
+    # end
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
-    end
+    # def survey(id:)
+    #   begin
+    #     Survey.find(id)
+    #   rescue ActiveRecord::RecordNotFound
+    #     raise GraphQL::ExecutionError.new("Survey not found with ID #{id}")
+    #   end
+    # end
   end
 end
