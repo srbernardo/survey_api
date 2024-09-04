@@ -1,9 +1,19 @@
 class Question < ApplicationRecord
   belongs_to :survey
 
-  has_one :multi_line_answers, dependent: :destroy
-  has_one :single_line_answers, dependent: :destroy
+  has_one :multi_line_answer, dependent: :destroy
+  has_one :single_line_answer, dependent: :destroy
   has_many :choices, dependent: :destroy
 
-  enum option: { checkboxe: 0, radio_Button: 1, single_line_answer: 2, multi_line_answer: 3 }
+  enum option: { checkboxe: 0, radio_button: 1, single_line_answer: 2, multi_line_answer: 3 }
+
+  validate :limit_radio_button_questions, on: :create
+
+  private
+
+  def limit_radio_button_questions
+    if survey.questions.where(option: 'radio_button').count >= 10 && option == 'radio_button'
+      errors.add(:base, 'You cannot add more than 10 "radio button" questions to this survey.')
+    end
+  end
 end
