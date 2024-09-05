@@ -6,6 +6,7 @@ module Types
     field :title, String, null: false
     field :option, Integer, null: false
     field :survey_id, Integer, null: false
+    field :choices, [Types::ChoiceType], null: false, description: "List of choices for this question"
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end

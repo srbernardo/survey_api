@@ -28,5 +28,16 @@ module Types
         close_surveys: Survey.all.reject(&:open?)
       }
     end
+
+    field :question, Types::QuestionType, null: false do
+      argument :id, ID, required: true
+    end
+    def question(id:)
+      begin
+       Question.find(id)
+      rescue ActiveRecord::RecordNotFound
+        raise GraphQL::ExecutionError.new("Question not found with ID #{id}")
+      end
+    end
   end
 end
