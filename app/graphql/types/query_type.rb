@@ -20,16 +20,13 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    # field :survey, Types::SurveyType, null: false do
-    #   argument :id, ID, required: true
-    # end
-
-    # def survey(id:)
-    #   begin
-    #     Survey.find(id)
-    #   rescue ActiveRecord::RecordNotFound
-    #     raise GraphQL::ExecutionError.new("Survey not found with ID #{id}")
-    #   end
-    # end
+    field :surveys_lists, Types::SurveysListsType, null: false, description: "Return both completed and incomplete surveys"
+    def surveys_lists
+      {
+        completed_surveys: Survey.all.select(&:completed?),
+        open_surveys: Survey.all.select(&:open?),
+        close_surveys: Survey.all.reject(&:open?)
+      }
+    end
   end
 end
