@@ -10,13 +10,12 @@ module Mutations
 
     argument :id, ID, required: true
     argument :value, String, required: false
-    argument :marked, Boolean, required: false
 
-    def resolve(id:, value:, marked:)
+    def resolve(id:, value:)
       authorize_coordinator!
 
       choice = ::Choice.find(id)
-      raise GraphQL::ExecutionError.new "Error updating choice", extensions: choice.errors.to_hash unless choice.update(value:, marked:)
+      raise GraphQL::ExecutionError.new "Error updating choice", extensions: choice.errors.to_hash unless choice.update(value:)
 
       { choice: choice }
     end

@@ -1,6 +1,8 @@
 class Choice < ApplicationRecord
   belongs_to :question
 
+  has_many :choice_answers, dependent: :destroy
+
   validate :limit_choices_for_radio_button_questions, on: :create
   validates :value, presence: true
 

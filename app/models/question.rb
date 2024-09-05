@@ -6,6 +6,7 @@ class Question < ApplicationRecord
   has_one :multi_line_answer, dependent: :destroy
   has_one :single_line_answer, dependent: :destroy
   has_many :choices, dependent: :destroy
+  has_many :choice_answers, through: :choices
 
   enum option: { checkboxe: 0, radio_button: 1, single_line_answer: 2, multi_line_answer: 3 }
 

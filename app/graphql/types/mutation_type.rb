@@ -2,6 +2,7 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :choice_answer_create, mutation: Mutations::ChoiceAnswerCreate
     field :choice_respondent_update, mutation: Mutations::ChoiceRespondentUpdate
     field :multi_line_answer_create, mutation: Mutations::MultiLineAnswerCreate
     field :single_line_answer_create, mutation: Mutations::SingleLineAnswerCreate
