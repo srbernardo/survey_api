@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_162639) do
   enable_extension "plpgsql"
 
   create_table "choices", force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.boolean "marked", default: false
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_162639) do
   end
 
   create_table "multi_line_answers", force: :cascade do |t|
-    t.text "value"
+    t.text "value", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_162639) do
   end
 
   create_table "single_line_answers", force: :cascade do |t|
-    t.string "value"
+    t.string "value", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_162639) do
 
   create_table "surveys", force: :cascade do |t|
     t.string "title", null: false
+    t.boolean "open", default: true
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
