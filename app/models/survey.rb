@@ -3,6 +3,8 @@ class Survey < ApplicationRecord
 
   has_many :questions, dependent: :destroy
 
+  validates :title, presence: true
+
   def completed?
     questions.all? { |question| question.completed? }
   end

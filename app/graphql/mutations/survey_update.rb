@@ -10,12 +10,13 @@ module Mutations
 
     argument :id, ID, required: true
     argument :title, String, required: true
+    argument :open, Boolean, required: false
 
-    def resolve(id:, title:)
+    def resolve(id:, title:, open:)
       authorize_coordinator!
 
       survey = ::Survey.find(id)
-      raise GraphQL::ExecutionError.new "Error updating survey", extensions: survey.errors.to_hash unless survey.update(title:)
+      raise GraphQL::ExecutionError.new "Error updating survey", extensions: survey.errors.to_hash unless survey.update(title:, open:)
 
       { survey: survey }
     end
