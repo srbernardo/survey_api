@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  before_update :swap_order
+
   belongs_to :survey
 
   has_one :multi_line_answer, dependent: :destroy
@@ -8,6 +10,9 @@ class Question < ApplicationRecord
   enum option: { checkboxe: 0, radio_button: 1, single_line_answer: 2, multi_line_answer: 3 }
 
   validate :limit_radio_button_questions, on: :create
+  validate :ensure_unique_order, on: :create
+  validates :title, presence: true
+  validates :option, presence: true
 
   def completed?
     case option
@@ -25,6 +30,25 @@ class Question < ApplicationRecord
   def limit_radio_button_questions
     if survey.questions.where(option: 'radio_button').count >= 10 && option == 'radio_button'
       errors.add(:base, 'You cannot add more than 10 "radio button" questions to this survey.')
+    end
+  end
+
+  def swap_order
+    return unless order_changed?
+
+    old_order = order_was
+    new_order = order
+
+    question_to_swap = survey.questions.find_by(order: new_order)
+
+    if question_to_swap
+      question_to_swap.update_column(:order, old_order)
+    end
+  end
+
+  def ensure_unique_order
+    if survey.questions.exists?(order: order)
+      errors.add(:order, "There is already a question with this order in this survey.")
     end
   end
 end

@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_162639) do
   create_table "questions", force: :cascade do |t|
     t.string "title", null: false
     t.integer "option", null: false
+    t.integer "order", null: false
     t.bigint "survey_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
