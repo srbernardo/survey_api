@@ -4,6 +4,8 @@
 
 O `survey_api` é uma API desenvolvida com Ruby on Rails e GraphQL que permite a criação dinâmica de pesquisas (surveys). Sistema suporta dois tipos de usuários e utiliza JWT para autenticação e autorização. Através desta API, os usuários podem criar pesquisas, adicionar perguntas, definir opções e consultar os resultados. O objetivo principal do projeto é oferecer uma plataforma flexível para a criação e gerenciamento de pesquisas.
 
+[Link do pdf do teste técnico](https://drive.google.com/file/d/1FMj20aHE4UI_rBnzFsV-gtEhcFCMCi2u/view?usp=sharing)
+
 ## Funcionalidades
 
 - **Criação de Surveys**: Permite a criação de pesquisas com um título e estado (aberto ou fechado).
