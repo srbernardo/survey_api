@@ -20,10 +20,9 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    field :surveys_lists, Types::SurveysListsType, null: false, description: "Return both completed and incomplete surveys"
+    field :surveys_lists, Types::SurveysListsType, null: false, description: "Return both open and close surveys"
     def surveys_lists
       {
-        completed_surveys: Survey.all.select(&:completed?),
         open_surveys: Survey.all.select(&:open?),
         close_surveys: Survey.all.reject(&:open?)
       }
