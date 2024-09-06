@@ -33,10 +33,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_05_124814) do
 
   create_table "multi_line_answers", force: :cascade do |t|
     t.text "value", null: false
+    t.bigint "user_id", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_multi_line_answers_on_question_id"
+    t.index ["user_id"], name: "index_multi_line_answers_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -51,10 +53,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_05_124814) do
 
   create_table "single_line_answers", force: :cascade do |t|
     t.string "value", null: false
+    t.bigint "user_id", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_single_line_answers_on_question_id"
+    t.index ["user_id"], name: "index_single_line_answers_on_user_id"
   end
 
   create_table "surveys", force: :cascade do |t|
@@ -83,7 +87,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_05_124814) do
   add_foreign_key "choice_answers", "users"
   add_foreign_key "choices", "questions"
   add_foreign_key "multi_line_answers", "questions"
+  add_foreign_key "multi_line_answers", "users"
   add_foreign_key "questions", "surveys"
   add_foreign_key "single_line_answers", "questions"
+  add_foreign_key "single_line_answers", "users"
   add_foreign_key "surveys", "users"
 end
