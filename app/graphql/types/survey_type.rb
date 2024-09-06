@@ -4,6 +4,7 @@ module Types
   class SurveyType < Types::BaseObject
     field :id, ID, null: false
     field :title, String, null: false
+    field :open, Boolean, null: false
     field :user_id, Integer, null: false
     field :questions, [QuestionType], null: false, description: "List of questions for this Survey"
     field :result, GraphQL::Types::JSON, null: false
