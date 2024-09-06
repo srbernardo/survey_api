@@ -9,13 +9,14 @@ module Mutations
     field :question, Types::QuestionType, null: false
 
     argument :title, String, required: true
-    argument :option, Integer, required: true
+    argument :option, Int, required: true
+    argument :order, Int, required: true
     argument :survey_id, ID, required: true
 
-    def resolve(title:, option:, survey_id:)
+    def resolve(title:, option:, order:, survey_id:)
       authorize_coordinator!
 
-      question = ::Question.new(title:, option:, survey_id:)
+      question = ::Question.new(title:, option:, order:, survey_id:)
       raise GraphQL::ExecutionError.new "Error creating question", extensions: question.errors.to_hash unless question.save
 
       { question: question }

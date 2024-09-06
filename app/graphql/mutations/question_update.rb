@@ -10,13 +10,14 @@ module Mutations
 
     argument :id, ID, required: true
     argument :title, String, required: true
+    argument :order, Int, required: true
     argument :option, Integer, required: true
 
-    def resolve(id:, question_input:)
+    def resolve(id:, title:, option:, order:)
       authorize_coordinator!
 
       question = ::Question.find(id)
-      raise GraphQL::ExecutionError.new "Error updating question", extensions: question.errors.to_hash unless question.update(title:, option:)
+      raise GraphQL::ExecutionError.new "Error updating question", extensions: question.errors.to_hash unless question.update(title:, option:, order:)
 
       { question: question }
     end
