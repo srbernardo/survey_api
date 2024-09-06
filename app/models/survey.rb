@@ -5,12 +5,12 @@ class Survey < ApplicationRecord
 
   validates :title, presence: true
 
-  def completed?
-    questions.all? { |question| question.completed? }
+  def completed?(user_id)
+    questions.all? { |question| question.completed?(user_id) }
   end
 
   def can_submit?
-    if completed?
+    if completed?(user_id)
       true
     else
       errors.add(:base, "Survey is incomplete. Please complete all questions before submitting.")
