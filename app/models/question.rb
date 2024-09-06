@@ -15,14 +15,16 @@ class Question < ApplicationRecord
   validates :title, presence: true
   validates :option, presence: true
 
-  def completed?
+  def completed?(user_id)
     case option
     when "checkboxe", "radio_button"
-      choices.any?(&:marked)
+      choices.any? do |choice|
+        choice.choice_answers.any? { |answer| answer.user_id == user_id }
+      end
     when "single_line_answer"
-      single_line_answer&.value.present?
+      single_line_answers.any? { |answer| answer.user_id == user_id }
     else
-      multi_line_answer&.value.present?
+      multi_line_answers.any? { |answer| answer.user_id == user_id }
     end
   end
 
